@@ -1,0 +1,76 @@
+<div class="pt-3">
+  <img height="60%" width="40%" src="{{ logo }}" />
+
+  <div class="p-3">
+    <h6>Hello there, Sign In to Continue</h6>
+    <br />
+    <p class="text-danger text-capitalize" *ngIf="apierror">{{ apierror }}</p>
+    <form class="user-login" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group p-3 ps-0 py-0">
+        <label class="text-black-70">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="inputEmail"
+          formControlName="email"
+        />
+        <div *ngIf="submitted && formControl.email.errors" class="text-danger">
+          <div *ngIf="formControl.email.errors.email">Email must be valid.</div>
+          <div *ngIf="formControl.email.errors.required">
+            Email is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group p-3 ps-0">
+        <label class="text-black-70">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="inputPassword"
+          formControlName="password"
+        />
+
+        <div
+          *ngIf="submitted && formControl.password.errors"
+          class="text-danger"
+        >
+          <div *ngIf="formControl.password.errors.required">
+            Password is required.
+          </div>
+        </div>
+      </div>
+      <div class="form-check">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          formControlName="agreements"
+          id="assignmentchk"
+        />
+        <label class="form-check-label" for="assignmentchk">
+          By creating or logging into an account, you are agreeing with our
+          <strong>Terms & Conditions</strong> and
+          <strong>Privacy Policies.</strong></label
+        >
+      </div>
+      <div
+        *ngIf="submitted && formControl.agreements.errors"
+        class="text-danger"
+      >
+        <div *ngIf="formControl.agreements.errors.required">
+          Please accept Tearm and Conditions to proceed further.
+        </div>
+      </div>
+      <br />
+      <div>
+        <button
+          class="w-100 btn btn-primary"
+          [disabled]="!isValid || formControl.agreements.value != true"
+          type="submit"
+        >
+          Next
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
